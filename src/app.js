@@ -1,7 +1,11 @@
 const express = require('express');
 const { Server } = require('./server.js');
+const {categories} = require('./models/category.js');
+const category = require('./models/category.js');
+const app = express();
+app.use('/categories', category);
 
-const app = express(); // cria uma instância do Express
-const server = new Server(app); // passa a instância para a classe Server
+const server = new Server(app);
+
 
 // inicia o servidor
