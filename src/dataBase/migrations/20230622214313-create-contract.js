@@ -1,39 +1,73 @@
 'use strict';
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Contracts', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('contracts', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true,
+        allowNull: false,
       },
       trainee_id: {
-        type: Sequelize.INTEGER
-      },
-      company_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'trainees',
+          key: 'id',
+        },
       },
       category_id: {
-        type: Sequelize.INTEGER
-      },
-      start_date: {
-        type: Sequelize.DATE
-      },
-      end_date: {
-        type: Sequelize.DATE
-      },
-      createdAt: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'categories',
+          key: 'id',
+        },
       },
-      updatedAt: {
+      company_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        references: {
+          model: 'companies',
+          key: 'id',
+        },
+      },
+      start_validity: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      end_validity: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
+      remuneration: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      extra: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Contracts');
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('contracts');
   }
 };
