@@ -1,72 +1,74 @@
-'use strict';
+"use strict";
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('companies', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("companies", {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
       },
       cnpj: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       company_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       contact: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       cep: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       neighborhood: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       city: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       state: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       number: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       complement: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       rh_analyst_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       supervisor_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       created_at: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
       },
       updated_at: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
-      }
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('companies');
-  }
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("companies");
+  },
 };
